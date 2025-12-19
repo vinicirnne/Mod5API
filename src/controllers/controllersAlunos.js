@@ -30,7 +30,7 @@ async function criar(req, res) {
 
 async function atualizar(req, res) {
     try{
-        const aluno = await Aluno.findByPk();
+        const aluno = await Aluno.findByPk(req.params.id);
         if(!aluno) return res.status(404).json({erro: "Aluno não encontrado"});
         await aluno.update(req.body);
         res.json(500);

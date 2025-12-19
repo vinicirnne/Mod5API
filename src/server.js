@@ -6,10 +6,9 @@ app.use(express.json());
 
 
 const alunosRotas = require("./routes/routesAlunos");
-app.use = ("/alunos", alunosRotas);
-
+app.use("/alunos", alunosRotas);
 const cursosRotas = require("./routes/routesCursos");
-app.use("/cursos", cursosRotas);
+app.use("/Cursos", cursosRotas);
 
 const porta = 3000;
 
