@@ -20,12 +20,17 @@ async function buscarId(req, res) {
 }
 
 async function criar(req, res) {
-    try{
+  try {
+    console.log(req.body); // DEBUG
     const novo = await Aluno.create(req.body);
-    res.status(201).json(novo)
-    } catch{
-        res.status(500).json({erro: "erro ao criar aluno"});
-    }
+    res.status(201).json(novo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      erro: "erro ao criar aluno",
+      detalhe: error.message
+    });
+  }
 }
 
 async function atualizar(req, res) {
