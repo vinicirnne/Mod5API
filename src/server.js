@@ -11,6 +11,9 @@ app.use("/alunos", alunosRotas);
 const cursosRotas = require("./routes/routesCursos");
 app.use("/cursos", cursosRotas);
 
+const matriculasRotas = require("./routes/routesMatriculas");
+app.use("/matriculas", matriculasRotas);
+
 const porta = 3000;
 
 

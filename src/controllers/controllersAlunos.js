@@ -1,4 +1,4 @@
-const { Aluno } = require("../models");
+const { Aluno, Curso} = require("../models");
 
 async function listar(req, res) {
     try{
@@ -55,4 +55,28 @@ async function deletar(req, res) {
  }
 }
 
-module.exports = {listar, buscarId, atualizar, deletar, criar};
+async function listarAlunoCurso(req, res) {
+    try {
+        const { id } = req.params;
+
+        const aluno = await Aluno.findByPk(id, {
+            include: {
+                model: Curso,
+                through: { attributes: [] }
+            }
+        });
+
+        if (!aluno) {
+            return res.status(404).json({ erro: "Aluno não encontrado" });
+        }
+
+        // A associação foi definida como belongsToMany(models.Curso), então
+        // os cursos relacionados estarão em `aluno.Cursos` (pluralizado).
+        return res.json(aluno.Cursos);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro ao listar Alunos", detalhe: error.message });
+    }
+}
+
+module.exports = {listar, buscarId, atualizar, deletar, criar, listarAlunoCurso};

@@ -1,4 +1,4 @@
-const { Curso } = require("../models");
+const { Curso, Aluno } = require("../models");
 
 async function listar(req, res) {
     try{
@@ -50,4 +50,24 @@ async function deletar(req, res) {
  }
 }
 
-module.exports = {listar, buscarId, atualizar, deletar, criar};
+async function ListarCursosAlunos(req, res) {
+    try{
+        const { id } = req.params;
+
+        const cursos = await Curso.findByPk(id, {
+            include: {
+                model: Aluno,
+                through: { attributes: []}
+            }
+        });
+
+        if(!cursos){
+            return res.status(404).json({erro: "Curso não encontrado"})
+        }
+        return res.json(cursos.Alunos)
+    } catch{
+        return res.status(500).json({erro: "Erro ao listar por Aluno"});
+    }
+}
+
+module.exports = {listar, buscarId, atualizar, deletar, criar, ListarCursosAlunos};

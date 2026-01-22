@@ -8,5 +8,6 @@ rota.get("/:id", controller.buscarId);
 rota.post("/", controller.criar);
 rota.put("/:id", controller.atualizar);
 rota.delete("/:id", controller.deletar);
+rota.get("/:id/alunos", controller.ListarCursosAlunos);
 
 module.exports = rota;
